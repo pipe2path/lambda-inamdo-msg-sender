@@ -1,0 +1,17 @@
+C:\kevin\code\lambda\inamdo-msg-sender\test\inamdo-msg-sender.Tests\bin\Debug\netcoreapp2.1\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\kevin\code\lambda\inamdo-msg-sender\test\inamdo-msg-sender.Tests\bin\Debug\netcoreapp2.1\xunit.runner.reporters.netcoreapp10.dll
+C:\kevin\code\lambda\inamdo-msg-sender\test\inamdo-msg-sender.Tests\bin\Debug\netcoreapp2.1\xunit.runner.utility.netcoreapp10.dll
+C:\kevin\code\lambda\inamdo-msg-sender\test\inamdo-msg-sender.Tests\bin\Debug\netcoreapp2.1\inamdo-msg-sender.Tests.deps.json
+C:\kevin\code\lambda\inamdo-msg-sender\test\inamdo-msg-sender.Tests\bin\Debug\netcoreapp2.1\inamdo-msg-sender.Tests.runtimeconfig.json
+C:\kevin\code\lambda\inamdo-msg-sender\test\inamdo-msg-sender.Tests\bin\Debug\netcoreapp2.1\inamdo-msg-sender.Tests.runtimeconfig.dev.json
+C:\kevin\code\lambda\inamdo-msg-sender\test\inamdo-msg-sender.Tests\bin\Debug\netcoreapp2.1\inamdo-msg-sender.Tests.dll
+C:\kevin\code\lambda\inamdo-msg-sender\test\inamdo-msg-sender.Tests\bin\Debug\netcoreapp2.1\inamdo-msg-sender.Tests.pdb
+C:\kevin\code\lambda\inamdo-msg-sender\test\inamdo-msg-sender.Tests\bin\Debug\netcoreapp2.1\inamdo-msg-sender.dll
+C:\kevin\code\lambda\inamdo-msg-sender\test\inamdo-msg-sender.Tests\bin\Debug\netcoreapp2.1\inamdo-msg-sender.pdb
+C:\kevin\code\lambda\inamdo-msg-sender\test\inamdo-msg-sender.Tests\obj\Debug\netcoreapp2.1\inamdo-msg-sender.Tests.csprojAssemblyReference.cache
+C:\kevin\code\lambda\inamdo-msg-sender\test\inamdo-msg-sender.Tests\obj\Debug\netcoreapp2.1\inamdo-msg-sender.Tests.csproj.CoreCompileInputs.cache
+C:\kevin\code\lambda\inamdo-msg-sender\test\inamdo-msg-sender.Tests\obj\Debug\netcoreapp2.1\inamdo-msg-sender.Tests.AssemblyInfoInputs.cache
+C:\kevin\code\lambda\inamdo-msg-sender\test\inamdo-msg-sender.Tests\obj\Debug\netcoreapp2.1\inamdo-msg-sender.Tests.AssemblyInfo.cs
+C:\kevin\code\lambda\inamdo-msg-sender\test\inamdo-msg-sender.Tests\obj\Debug\netcoreapp2.1\inamdo-msg-sender.Tests.csproj.CopyComplete
+C:\kevin\code\lambda\inamdo-msg-sender\test\inamdo-msg-sender.Tests\obj\Debug\netcoreapp2.1\inamdo-msg-sender.Tests.dll
+C:\kevin\code\lambda\inamdo-msg-sender\test\inamdo-msg-sender.Tests\obj\Debug\netcoreapp2.1\inamdo-msg-sender.Tests.pdb
