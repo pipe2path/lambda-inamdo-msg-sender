@@ -7568,23 +7568,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\km0585\\.nuget\\packages\\": {},
+    "C:\\Users\\kevin\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\kevin\\code\\lambda\\inamdo-msg-sender\\test\\inamdo-msg-sender.Tests\\inamdo-msg-sender.Tests.csproj",
+      "projectUniqueName": "C:\\code\\vs\\lambda\\lambda-inamdo-msg-sender\\test\\inamdo-msg-sender.Tests\\inamdo-msg-sender.Tests.csproj",
       "projectName": "inamdo-msg-sender.Tests",
-      "projectPath": "C:\\kevin\\code\\lambda\\inamdo-msg-sender\\test\\inamdo-msg-sender.Tests\\inamdo-msg-sender.Tests.csproj",
-      "packagesPath": "C:\\Users\\km0585\\.nuget\\packages\\",
-      "outputPath": "C:\\kevin\\code\\lambda\\inamdo-msg-sender\\test\\inamdo-msg-sender.Tests\\obj\\",
+      "projectPath": "C:\\code\\vs\\lambda\\lambda-inamdo-msg-sender\\test\\inamdo-msg-sender.Tests\\inamdo-msg-sender.Tests.csproj",
+      "packagesPath": "C:\\Users\\kevin\\.nuget\\packages\\",
+      "outputPath": "C:\\code\\vs\\lambda\\lambda-inamdo-msg-sender\\test\\inamdo-msg-sender.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\km0585\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\kevin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7592,14 +7592,13 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Temp\\Postsharp": {},
-        "https://www.nuget.org/api/v2/": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\kevin\\code\\lambda\\inamdo-msg-sender\\src\\inamdo-msg-sender\\inamdo-msg-sender.csproj": {
-              "projectPath": "C:\\kevin\\code\\lambda\\inamdo-msg-sender\\src\\inamdo-msg-sender\\inamdo-msg-sender.csproj"
+            "C:\\code\\vs\\lambda\\lambda-inamdo-msg-sender\\src\\inamdo-msg-sender\\inamdo-msg-sender.csproj": {
+              "projectPath": "C:\\code\\vs\\lambda\\lambda-inamdo-msg-sender\\src\\inamdo-msg-sender\\inamdo-msg-sender.csproj"
             }
           }
         }

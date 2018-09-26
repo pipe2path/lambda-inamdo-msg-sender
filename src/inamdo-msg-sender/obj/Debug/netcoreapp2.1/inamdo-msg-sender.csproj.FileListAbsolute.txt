@@ -9,3 +9,14 @@ C:\kevin\code\lambda\inamdo-msg-sender\src\inamdo-msg-sender\obj\Debug\netcoreap
 C:\kevin\code\lambda\inamdo-msg-sender\src\inamdo-msg-sender\obj\Debug\netcoreapp2.1\inamdo-msg-sender.AssemblyInfo.cs
 C:\kevin\code\lambda\inamdo-msg-sender\src\inamdo-msg-sender\obj\Debug\netcoreapp2.1\inamdo-msg-sender.dll
 C:\kevin\code\lambda\inamdo-msg-sender\src\inamdo-msg-sender\obj\Debug\netcoreapp2.1\inamdo-msg-sender.pdb
+C:\code\vs\lambda\lambda-inamdo-msg-sender\src\inamdo-msg-sender\bin\Debug\netcoreapp2.1\inamdo-msg-sender.deps.json
+C:\code\vs\lambda\lambda-inamdo-msg-sender\src\inamdo-msg-sender\bin\Debug\netcoreapp2.1\inamdo-msg-sender.runtimeconfig.json
+C:\code\vs\lambda\lambda-inamdo-msg-sender\src\inamdo-msg-sender\bin\Debug\netcoreapp2.1\inamdo-msg-sender.runtimeconfig.dev.json
+C:\code\vs\lambda\lambda-inamdo-msg-sender\src\inamdo-msg-sender\bin\Debug\netcoreapp2.1\inamdo-msg-sender.dll
+C:\code\vs\lambda\lambda-inamdo-msg-sender\src\inamdo-msg-sender\bin\Debug\netcoreapp2.1\inamdo-msg-sender.pdb
+C:\code\vs\lambda\lambda-inamdo-msg-sender\src\inamdo-msg-sender\obj\Debug\netcoreapp2.1\inamdo-msg-sender.csprojAssemblyReference.cache
+C:\code\vs\lambda\lambda-inamdo-msg-sender\src\inamdo-msg-sender\obj\Debug\netcoreapp2.1\inamdo-msg-sender.csproj.CoreCompileInputs.cache
+C:\code\vs\lambda\lambda-inamdo-msg-sender\src\inamdo-msg-sender\obj\Debug\netcoreapp2.1\inamdo-msg-sender.AssemblyInfoInputs.cache
+C:\code\vs\lambda\lambda-inamdo-msg-sender\src\inamdo-msg-sender\obj\Debug\netcoreapp2.1\inamdo-msg-sender.AssemblyInfo.cs
+C:\code\vs\lambda\lambda-inamdo-msg-sender\src\inamdo-msg-sender\obj\Debug\netcoreapp2.1\inamdo-msg-sender.dll
+C:\code\vs\lambda\lambda-inamdo-msg-sender\src\inamdo-msg-sender\obj\Debug\netcoreapp2.1\inamdo-msg-sender.pdb

@@ -38,34 +38,28 @@ namespace inamdo_msg_sender
                 //return input?.ToUpper();
                 var userTask = getUsers();
 
-                userTask.ContinueWith(task =>
-                {
-                    //var users = task.Result;
-                    //foreach (User u in users)
-                    //Console.WriteLine(u.userName.ToString());
-                    Console.WriteLine("Processing done ...");
-                },
-                TaskContinuationOptions.OnlyOnRanToCompletion);
+                userTask.ContinueWith(task => {}, TaskContinuationOptions.OnlyOnRanToCompletion);
                 Console.ReadLine();
 
                 success = true;
+                return success;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return success; 
         }
 
         static async Task<IEnumerable<User>> getUsers()
         {
-            string getPath = "http://localhost:13985/api/users/couponlist";
-            string putPath = "http://localhost:13985/api/messages";
-            string getMsgPath = "http://localhost:13985/api/messages/user";
+            string getPath = "http://review.inamdo.com/api/users/couponlist";
+            string putPath = "http://review.inamdo.com/api/messages";
+            string getMsgPath = "http://review.inamdo.com/api/messages/user";
             ObjectId userId = new ObjectId();
             string phoneNum = "";
             string smsMessage = "";
             string code = "";
+            string msgUserPath = "";
 
             //await Task.Delay(3000);
 
@@ -82,12 +76,15 @@ namespace inamdo_msg_sender
                 code = u.code.ToString();
 
                 // check if user has been sent a message in the past 15 days
-                double daysSinceLastMsg = await messageLastSent(userId, getMsgPath);
-                if (daysSinceLastMsg > 15)
+                msgUserPath = getMsgPath + "?id=" + userId;
+                double daysSinceLastMsg = messageLastSent(msgUserPath);
+                //daysSinceLastMsg.ContinueWith(task => { }, TaskContinuationOptions.OnlyOnRanToCompletion);
+
+                if (daysSinceLastMsg == 0 || daysSinceLastMsg > 15)
                 {
                     smsMessage = u.message + " Please use code: " + code + " when you order.";
                     var smsApi = SinchFactory.CreateApiFactory("86be6998-e82f-49eb-9d8d-cdd2427ad4a9", "5MnvbXXhe0iMuzXjl02WWQ==").CreateSmsApi();
-                    var sendSmsResponse = await smsApi.Sms("+19094524127", smsMessage).Send();
+                    var sendSmsResponse = await smsApi.Sms("+1" + phoneNum, smsMessage).Send();
                     await Task.Delay(TimeSpan.FromSeconds(10));
                     var smsMessageStatusResponse = await smsApi.GetSmsStatus(sendSmsResponse.MessageId);
 
@@ -116,28 +113,29 @@ namespace inamdo_msg_sender
             return users;
         }
 
-        static async Task<double> messageLastSent(ObjectId userId, string getMsgPath)
+        static double messageLastSent(string getMsgPath)
         {
-            var response = await client.GetAsync(getMsgPath);
-            response.EnsureSuccessStatusCode();
-            var stringResult = await response.Content.ReadAsStringAsync();
-            List<Message> messages = JsonConvert.DeserializeObject<List<Message>>(stringResult);
-            DateTime msgLastSent = DateTime.Today;
             double numOfDays = 0;
-
-            if (messages != null && messages.Count > 0)
+            var response = client.GetAsync(getMsgPath).Result;
+            if (response.IsSuccessStatusCode)
             {
-                foreach (Message msg in messages)
+                var stringResult = response.Content.ReadAsStringAsync().Result;
+                List<Message> messages = JsonConvert.DeserializeObject<List<Message>>(stringResult);
+                DateTime msgLastSent = DateTime.Today;
+        
+                if (messages != null && messages.Count > 0)
                 {
-                    msgLastSent = msg.dateLastTextSent;
-                    break;
+                    foreach (Message msg in messages)
+                    {
+                        msgLastSent = msg.dateLastTextSent;
+                        break;
+                    }
                 }
-            }
 
-            TimeSpan ts = DateTime.Today.Subtract(msgLastSent);
-            numOfDays = ts.TotalDays;
+                TimeSpan ts = DateTime.Today.Subtract(msgLastSent);
+                numOfDays = ts.TotalDays;
+            }        
             return numOfDays;
-
         }
     }
 
