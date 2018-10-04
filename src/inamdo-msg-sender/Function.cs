@@ -23,35 +23,37 @@ namespace inamdo_msg_sender
         private static Timer timer;
         private static readonly HttpClient client = new HttpClient();
         
-        /// <summary>
-        /// A simple function that takes a string and does a ToUpper
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="context"></param>
-        /// <returns></returns>
         public bool FunctionHandler(ILambdaContext context)
         {
             bool success = false;
 
             try
             {
-                //return input?.ToUpper();
-                var userTask = getUsers();
+                //Write Log to Cloud Watch using Console.WriteLline.    
+                Console.WriteLine("Execution started for function -  {0} at {1}",
+                                    context.FunctionName, DateTime.Now);
 
-                userTask.ContinueWith(task => {}, TaskContinuationOptions.OnlyOnRanToCompletion);
-                Console.ReadLine();
+                processUsers();
 
                 success = true;
+
+                //Write Log to cloud watch using context.Logger.Log Method  
+                context.Logger.Log(string.Format("Finished execution for function -- {0} at {1}",
+                                   context.FunctionName, DateTime.Now));
+
                 return success;
             }
             catch (Exception ex)
             {
-                throw ex;
+                Console.WriteLine("Error during execution for function -- {0} at {1}", context.FunctionName, DateTime.Now);
+                return false;
             }
         }
 
-        static async Task<IEnumerable<User>> getUsers()
+        static bool processUsers()
         {
+            bool success = false;
+            
             string getPath = "http://review.inamdo.com/api/users/couponlist";
             string putPath = "http://review.inamdo.com/api/messages";
             string getMsgPath = "http://review.inamdo.com/api/messages/user";
@@ -61,14 +63,10 @@ namespace inamdo_msg_sender
             string code = "";
             string msgUserPath = "";
 
-            //await Task.Delay(3000);
-
-            var response = await client.GetAsync(getPath);
-            response.EnsureSuccessStatusCode();
-            var stringResult = await response.Content.ReadAsStringAsync();
+            var response = client.GetAsync(getPath).Result;
+            string stringResult = response.Content.ReadAsStringAsync().Result;
             IEnumerable<User> users = JsonConvert.DeserializeObject<IEnumerable<User>>(stringResult);
 
-            // process messages
             foreach (User u in users)
             {
                 userId = u.userId;
@@ -83,12 +81,9 @@ namespace inamdo_msg_sender
                 if (daysSinceLastMsg == 0 || daysSinceLastMsg > 15)
                 {
                     smsMessage = u.message + " Please use code: " + code + " when you order.";
-                    var smsApi = SinchFactory.CreateApiFactory("86be6998-e82f-49eb-9d8d-cdd2427ad4a9", "5MnvbXXhe0iMuzXjl02WWQ==").CreateSmsApi();
-                    var sendSmsResponse = await smsApi.Sms("+1" + phoneNum, smsMessage).Send();
-                    await Task.Delay(TimeSpan.FromSeconds(10));
-                    var smsMessageStatusResponse = await smsApi.GetSmsStatus(sendSmsResponse.MessageId);
+                    var smsStatus = SendSMS(phoneNum, smsMessage).GetAwaiter().GetResult();
 
-                    if (smsMessageStatusResponse.Status == "Successful")
+                    if (smsStatus == "Successful")
                     {
                         // update db
                         MessageJsonPayload payload = new MessageJsonPayload();
@@ -101,18 +96,27 @@ namespace inamdo_msg_sender
 
                         try
                         {
-                            response = await client.PutAsync(putPath, new StringContent(payload.ToJson(), Encoding.UTF8, "application/json"));
+                            response = client.PutAsync(putPath, new StringContent(payload.ToJson(), Encoding.UTF8, "application/json")).Result;
                         }
                         catch (Exception ex)
                         {
-
+                            success = false;
                         }
                     }
                 }
             }
-            return users;
+            return success;
         }
 
+        private static async Task<string> SendSMS(string phoneNum, string smsMessage)
+        {
+            var smsApi = SinchFactory.CreateApiFactory("86be6998-e82f-49eb-9d8d-cdd2427ad4a9", "5MnvbXXhe0iMuzXjl02WWQ==").CreateSmsApi();
+            var sendSmsResponse = await smsApi.Sms("+1" + phoneNum, smsMessage).Send();
+            await Task.Delay(TimeSpan.FromSeconds(10));
+            var smsMessageStatusResponse = await smsApi.GetSmsStatus(sendSmsResponse.MessageId);
+            return smsMessageStatusResponse.Status;
+        }
+        
         static double messageLastSent(string getMsgPath)
         {
             double numOfDays = 0;
@@ -141,15 +145,10 @@ namespace inamdo_msg_sender
 
     public class User
     {
-
         // not using userId because NewtonSoft cannot deserialize an ObjectId type. Throws an error. Will use code and userPhone for uniqueness.
 
         [JsonConverter(typeof(ObjectIdConverter))]
         public ObjectId userId { get; set; }
-
-        //[BsonId]
-        //[BsonRepresentation(BsonType.ObjectId)]
-        //public string internalId { get; set; }
 
         public int code { get; set; }
         public string userName { get; set; }
