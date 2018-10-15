@@ -69,38 +69,42 @@ namespace inamdo_msg_sender
 
             foreach (User u in users)
             {
-                userId = u.userId;
-                phoneNum = u.userPhone;
-                code = u.code.ToString();
-
-                // check if user has been sent a message in the past 15 days
-                msgUserPath = getMsgPath + "?id=" + userId;
-                double daysSinceLastMsg = messageLastSent(msgUserPath);
-                //daysSinceLastMsg.ContinueWith(task => { }, TaskContinuationOptions.OnlyOnRanToCompletion);
-
-                if (daysSinceLastMsg == 0 || daysSinceLastMsg > 15)
+                // send only if the message exists - after the owner submits a valid message
+                if (u.message != null)
                 {
-                    smsMessage = u.message + " Please use code: " + code + " when you order.";
-                    var smsStatus = SendSMS(phoneNum, smsMessage).GetAwaiter().GetResult();
+                    userId = u.userId;
+                    phoneNum = u.userPhone;
+                    code = u.code.ToString();
+                    
+                    // check if user has been sent a message in the past 15 days
+                    msgUserPath = getMsgPath + "?id=" + userId;
+                    double daysSinceLastMsg = messageLastSent(msgUserPath);
+                    //daysSinceLastMsg.ContinueWith(task => { }, TaskContinuationOptions.OnlyOnRanToCompletion);
 
-                    if (smsStatus == "Successful")
+                    if (daysSinceLastMsg == 0 || daysSinceLastMsg > 15)
                     {
-                        // update db
-                        MessageJsonPayload payload = new MessageJsonPayload();
-                        payload.userId = u.userId.ToString();
-                        payload.userName = u.userName;
-                        payload.userPhone = u.userPhone;
-                        payload.userEmail = u.userEmail;
-                        payload.message = u.message;
-                        payload.code = u.code;
+                        smsMessage = u.message + " Please use code: " + code + " when you order.";
+                        var smsStatus = SendSMS(phoneNum, smsMessage).GetAwaiter().GetResult();
 
-                        try
+                        if (smsStatus == "Successful")
                         {
-                            response = client.PutAsync(putPath, new StringContent(payload.ToJson(), Encoding.UTF8, "application/json")).Result;
-                        }
-                        catch (Exception ex)
-                        {
-                            success = false;
+                            // update db
+                            MessageJsonPayload payload = new MessageJsonPayload();
+                            payload.userId = u.userId.ToString();
+                            payload.userName = u.userName;
+                            payload.userPhone = u.userPhone;
+                            payload.userEmail = u.userEmail;
+                            payload.message = u.message;
+                            payload.code = u.code;
+
+                            try
+                            {
+                                response = client.PutAsync(putPath, new StringContent(payload.ToJson(), Encoding.UTF8, "application/json")).Result;
+                            }
+                            catch (Exception ex)
+                            {
+                                success = false;
+                            }
                         }
                     }
                 }
